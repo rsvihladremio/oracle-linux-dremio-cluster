@@ -7,6 +7,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "https://oracle.github.io/vagrant-projects/boxes/oraclelinux/8.json"
 
   config.vm.define "coordinator" do |coordinator|
+    coordinator.vm.network "forwarded_port", guest: 9047, host: 9047
     coordinator.vm.network "private_network", ip: "192.168.56.10"
     coordinator.vm.provision "shell", inline: <<-SHELL
         sed -i 's/executor.enabled: true/executor.enabled: false/g' /etc/dremio/dremio.conf
